@@ -7,6 +7,12 @@ import numpy as np
 # Alpha values (changing the step of the weights)
 alphas = [0.001,0.01,0.1,1,10,100,1000]
 
+# Hidden size (of the hidden layer)
+# Larger helps get to result faster, covers more
+# Usually recommended to be between the input and output sizes
+# Along with 1 optimized hidden layer
+hiddenSize = 4
+
 # Sigmoid function for nonlinearity
 # Translates from numbers to range of 0 to 1
 def sigmoid(x):
@@ -39,10 +45,10 @@ for alpha in alphas:
     # First Layer
     # Have weights be from -1 to 1 in a 3x4 matrix
     # Convert raw input 4x3 into 4x4 output
-    syn0 = 2 * np.random.random((3,4)) - 1
+    syn0 = 2 * np.random.random((3,hiddenSize)) - 1
     # Second Layer
     # Convert raw input 4x4 to a 4x1
-    syn1 = 2 * np.random.random((4,1)) - 1
+    syn1 = 2 * np.random.random((hiddenSize,1)) - 1
 
     # Testing
     for iter in range(60000):
