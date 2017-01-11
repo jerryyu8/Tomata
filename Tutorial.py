@@ -1,5 +1,6 @@
 import numpy as np
 
+# 1 layer neural net
 # Tutorial from
 # http://iamtrask.github.io/2015/07/12/basic-python-network/
 
@@ -28,31 +29,56 @@ y = np.array([[0,0,1,1]]).T
 np.random.seed(1)
 
 # Initialize weights
-# Have weights be from -1 to 1 in a 3x1 matrix
-syn0 = 2 * np.random.random((3,1)) - 1
+# First Layer
+# Have weights be from -1 to 1 in a 3x4 matrix
+# Convert raw input 4x3 into 4x4 output
+syn0 = 2 * np.random.random((3,4)) - 1
+# Second Layer
+# Convert raw input 4x4 to a 4x1
+syn1 = 2 * np.random.random((4,1)) - 1
 
 # Testing
-for iter in range(10000):
+for iter in range(60000):
 
     # Forward Propagation
     l0 = x # original
-    rawInput = np.dot(l0,syn0)
-    l1 = sigmoid(rawInput)
 
+    l1RawInput = np.dot(l0,syn0)
+    l1 = sigmoid(l1RawInput)
+
+    l2RawInput = np.dot(l1,syn1)
+    l2 = sigmoid(l2RawInput)
+
+    # Second Layer Processing
     # Error
-    l1_error = y - l1
+    l2_error = y - l2
     # Factor in confidence, which is in slope
-    # Closer to 0 or 1 > more confident > smaller slope > less change
-    # Closer to .5 > less confident > larger slope > more change
+    l2_delta = l2_error * deriv(l2)
+
+    # First Layer Processing
+    # Error
+    # Error of each result split over all weights from syn1
+    l1_error = l2_delta.dot(syn1.T)
+    # Factor in confidence, which is in slope
     l1_delta = l1_error * deriv(l1)
+
+    if (iter % 10000) == 0:
+        print ("Error:" + str(np.mean(np.abs(l2_error))))
+
     # Update Weights
-    # delta is how much off each output is
-    # flip l0 from each col being input and row being output
-    # to col being output and row being input
-    # then multiplying by delta shows how much each input needs to change
-    # based on weights of all outputs and whether or not if affects it
-    syn0 += np.dot(l0.T, l1_delta)
+    syn1 += l1.T.dot(l2_delta)
+    syn0 += l0.T.dot(l1_delta)
+
+testX = np.array([[0,1,0]])
+print("Output of [0,1,0]")
+testl1 = sigmoid(testX.dot(syn0))
+print(sigmoid(testl1.dot(syn1)))
+
+testX = np.array([[1,1,0]])
+print("Output of [1,1,0]")
+testl1 = sigmoid(testX.dot(syn0))
+print(sigmoid(testl1.dot(syn1)))
 
 print ("Output After Training:")
+print (l2)
 
-print (l1)
