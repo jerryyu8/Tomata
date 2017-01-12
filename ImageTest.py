@@ -1,9 +1,33 @@
-import requests
+import cv2
+import os
+import numpy as np
 
-sources = open("TomatoURLs.txt",'r')
-print(sources.read())
+class Game(object):
+    def __init__(self):
+        self.vegetablePics = []
+        self.tomatoPics = []
+        self.initVegPics()
+        self.initTomPics()
+        self.allPics = self.vegetablePics + self.tomatoPics
 
-img_data = requests.get("http://farm3.static.flickr.com/2370/2054573289_62c4e4b029.jpg").content
-with open('image_name.jpg', 'wb') as handler:
-    handler.write(img_data)
+    def initVegPics(self):
+        mainPath = os.getcwd()
+        os.chdir("Vegetables")
+        for fileName in os.listdir(os.getcwd()):
+            self.vegetablePics.append(cv2.imread(fileName))
+        os.chdir(mainPath)
 
+    def initTomPics(self):
+        mainPath = os.getcwd()
+        os.chdir("Tomatos")
+        for fileName in os.listdir(os.getcwd()):
+            self.tomatoPics.append(cv2.imread(fileName))
+        os.chdir(mainPath)
+
+    def run(self):
+        self.y = np.array([[0,0,0,0,0,1,1,1,1,1]]).T
+        print(self.allPics[0])
+        print('run')
+
+game = Game()
+game.run()
