@@ -1,11 +1,11 @@
 import numpy as np
 
-# 1 layer neural net
+# 3 layer neural net
 # Tutorial from
 # http://iamtrask.github.io/2015/07/12/basic-python-network/
 
 # Alpha values (changing the step of the weights)
-alphas = [0.001,0.01,0.1,1,10,100,1000]
+alphas = [0.001,0.01,0.1,1,10]
 
 # Hidden size (of the hidden layer)
 # Larger helps get to result faster, covers more
