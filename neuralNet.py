@@ -8,7 +8,7 @@ from preProcessing import *
 
 # Alpha values (changing the step of the weights)
 # alphas = [0.001,0.01,0.1,1,10,100,1000]
-alphas = [1]
+alphas = [.1]
 
 # Hidden size (of the hidden layer)
 # Larger helps get to result faster, covers more
@@ -52,10 +52,10 @@ for alpha in alphas:
     syn0 = 2 * np.random.random((2000,hiddenSize)) - 1
     # Second Layer
     # Convert raw input 4x4 to a 4x1
-    syn1 = 2 * np.random.random((hiddenSize,10)) - 1
+    syn1 = 2 * np.random.random((hiddenSize,1)) - 1
 
     # Testing
-    for iter in range(60000):
+    for iter in range(30001):
 
         # Forward Propagation
         l0 = np.array(x) # original
