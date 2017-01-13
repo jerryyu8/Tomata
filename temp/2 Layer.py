@@ -1,8 +1,8 @@
 import numpy as np
 
 # 2 layer neural net
-# Tutorial from
 # http://iamtrask.github.io/2015/07/12/basic-python-network/
+
 
 # Sigmoid function
 # Translates from numbers to range of 0 to 1

@@ -1,7 +1,6 @@
 import numpy as np
 
 # 3 layer neural net
-# Tutorial from
 # http://iamtrask.github.io/2015/07/12/basic-python-network/
 
 # Sigmoid function

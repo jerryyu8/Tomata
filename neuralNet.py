@@ -3,8 +3,6 @@ from preProcessing import *
 
 
 # 3 layer neural net
-# Tutorial from
-# http://iamtrask.github.io/2015/07/12/basic-python-network/
 
 # Alpha values (changing the step of the weights)
 # alphas = [0.001,0.01,0.1,1,10,100,1000]
