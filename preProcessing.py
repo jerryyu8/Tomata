@@ -42,8 +42,22 @@ class preProcess(object):
         sizedInputPic = np.zeros((400,501))
         rawRows, rawCols = len(rawInputPic), len(rawInputPic[0])
         sizedInputPic[:rawRows-400,:rawCols-501] = rawInputPic
+        #Reduce it
+        inputPic = []
+        for oldRow in range(0,400,10):
+            createRow = []
+            for oldCol in range(0,500,10):
+                tempSum = 0
+                for newRow in range(10):
+                    for newCol in range(10):
+                        try: tempSum += sizedInputPic[oldRow+newRow][oldCol+newCol]
+                        except: print(oldRow+newRow, oldCol+newCol)
+                createRow.append(tempSum/100)
+            inputPic.append(createRow)
         # Convert 2D matrix to 1D
-        return sizedInputPic.flatten()
+        inputPic = np.array(inputPic)
+        print(len(inputPic), len(inputPic[0]))
+        return inputPic.flatten()
 
 
     def run(self):
@@ -53,7 +67,7 @@ class preProcess(object):
         for i in range(len(self.allPics)):
             # print(len(self.allPics[i]), len(self.allPics[i][0]))
             self.input.append(self.convertToInputPic(self.allPics[i]))
-        # print(self.input[0][0])
+        print(self.input[0][0])
 
 # preProcess = preProcess()
 # preProcess.run()

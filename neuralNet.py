@@ -49,7 +49,7 @@ for alpha in alphas:
     # Have weights be from -1 to 1 in a 3x4 matrix
     # Convert raw input 4x3 into 4x4 output
     # 10x200400
-    syn0 = 2 * np.random.random((200400,hiddenSize)) - 1
+    syn0 = 2 * np.random.random((2000,hiddenSize)) - 1
     # Second Layer
     # Convert raw input 4x4 to a 4x1
     syn1 = 2 * np.random.random((hiddenSize,10)) - 1
@@ -58,7 +58,7 @@ for alpha in alphas:
     for iter in range(60000):
 
         # Forward Propagation
-        l0 = x # original
+        l0 = np.array(x) # original
 
         l1RawInput = np.dot(l0,syn0)
         l1 = sigmoid(l1RawInput)
@@ -78,7 +78,6 @@ for alpha in alphas:
         l1_error = l2_delta.dot(syn1.T)
         # Factor in confidence, which is in slope
         l1_delta = l1_error * deriv(l1)
-
         if (iter % 10000) == 0:
             print ("Error at "+ str(iter)+ ": " + str(np.mean(np.abs(l2_error))))
         # Update Weights
