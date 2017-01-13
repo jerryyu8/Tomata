@@ -34,6 +34,7 @@ class preProcess(object):
         os.chdir("TestData")
         count = 0
         for fileName in os.listdir(os.getcwd()):
+            print(fileName)
             self.rawTestPics.append(cv2.imread(fileName))
             if count in [1,2]:
                 self.rawTestPics[count] = np.transpose(self.rawTestPics[count],(1,0,2))
