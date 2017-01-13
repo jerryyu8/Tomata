@@ -87,3 +87,19 @@ for alpha in alphas:
 print ("Output After Training:")
 print (l2)
 
+print("Testing")
+l0 = np.array(preProcess.test) # original
+
+l1RawInput = np.dot(l0,syn0)
+l1 = sigmoid(l1RawInput)
+
+l2RawInput = np.dot(l1,syn1)
+l2 = sigmoid(l2RawInput)
+
+print("Results")
+print(l2)
+
+f = open('rawLog.txt', 'w')
+np.set_printoptions(precision=3)
+f.write(np.array_repr(syn0))
+f.write(np.array_repr(syn1))

@@ -6,11 +6,14 @@ class preProcess(object):
     def __init__(self):
         self.vegetablePics = []
         self.tomatoPics = []
+        self.rawTestPics = []
         self.initVegPics()
         self.initTomPics()
+        self.initTestPics()
         self.allPics = self.vegetablePics + self.tomatoPics
         self.input = []
         self.output = []
+        self.test = []
 
     def initVegPics(self):
         mainPath = os.getcwd()
@@ -24,6 +27,17 @@ class preProcess(object):
         os.chdir("Tomatos")
         for fileName in os.listdir(os.getcwd()):
             self.tomatoPics.append(cv2.imread(fileName))
+        os.chdir(mainPath)
+
+    def initTestPics(self):
+        mainPath = os.getcwd()
+        os.chdir("TestData")
+        count = 0
+        for fileName in os.listdir(os.getcwd()):
+            self.rawTestPics.append(cv2.imread(fileName))
+            if count in [1,2]:
+                self.rawTestPics[count] = np.transpose(self.rawTestPics[count],(1,0,2))
+            count += 1
         os.chdir(mainPath)
 
     def convertToInputPic(self, source):
@@ -68,6 +82,9 @@ class preProcess(object):
             # print(len(self.allPics[i]), len(self.allPics[i][0]))
             self.input.append(self.convertToInputPic(self.allPics[i]))
         print(self.input[0][0])
+        for i in range(len(self.rawTestPics)):
+            # print(len(self.allPics[i]), len(self.allPics[i][0]))
+            self.test.append(self.convertToInputPic(self.rawTestPics[i]))
 
 # preProcess = preProcess()
 # preProcess.run()
