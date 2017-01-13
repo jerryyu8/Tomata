@@ -1,2 +1,3 @@
 Basic Image Recognition With Python  
-Tomato Picker That Identifies Tomatoes in Images
+Neural Net That Identifies Tomatoes in Images  
+Uses back propogation, alpha levels, hidden layer sizes
