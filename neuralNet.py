@@ -6,13 +6,16 @@ from preProcessing import *
 
 # Alpha values (changing the step of the weights)
 # alphas = [0.001,0.01,0.1,1,10,100,1000]
-alphas = [.1]
+alphas = [.1, .5]
 
 # Hidden size (of the hidden layer)
 # Larger helps get to result faster, covers more
 # Usually recommended to be between the input and output sizes
 # Along with 1 optimized hidden layer
 hiddenSize = 500
+
+# Dropout Varaibles
+dropout_percent,do_dropout = (0.2,True)
 
 # Sigmoid function for nonlinearity
 # Translates from numbers to range of 0 to 1
@@ -60,6 +63,11 @@ for alpha in alphas:
 
         l1RawInput = np.dot(l0,syn0)
         l1 = sigmoid(l1RawInput)
+
+        # Dropout
+        if(do_dropout):
+            l1 *= np.random.binomial([np.ones((len(x),hiddenSize))],
+                        1-dropout_percent)[0] * (1.0/(1-dropout_percent))
 
         l2RawInput = np.dot(l1,syn1)
         l2 = sigmoid(l2RawInput)
